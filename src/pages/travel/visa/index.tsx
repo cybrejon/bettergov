@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Compass,
   FileCheck,
   Globe,
   Search,
   AlertCircle,
   ExternalLink,
+  ArrowRightIcon,
+  PlaneIcon,
+  FilterIcon,
 } from 'lucide-react';
 import visaData from '../../../data/visa/philippines_visa_policy.json';
 import { PhilippinesVisaPolicy, VisaRequirement } from '../../../types/visa';
@@ -178,29 +180,16 @@ const VisaPage: React.FC = () => {
 
   return (
     <div className='bg-gray-50'>
-      {/* Hero Section */}
-      <div className='bg-linear-to-r from-blue-600 to-indigo-700 text-white py-16 px-4'>
-        <div className='container mx-auto max-w-6xl'>
-          <div className='flex flex-col md:flex-row items-center justify-between'>
-            <div className='md:w-1/2 mb-8 md:mb-0'>
-              <h1 className='text-4xl md:text-5xl font-bold mb-4'>
-                {t('hero.title')}
-              </h1>
-              <p className='text-xl opacity-90 mb-6'>{t('hero.subtitle')}</p>
-              <div className='flex items-center space-x-2 text-sm'>
-                <Globe className='h-4 w-4' />
-                <span>{t('hero.dataSource')}</span>
-              </div>
-              <Link to='/travel/visa-types'>
-                <Button className='text-xl bg-blue-800 py-8 px-8 mt-6'>
-                  {t('hero.checkVisaTypes')}
-                </Button>
-              </Link>
-            </div>
-            <div className='self-start md:w-1/3'>
-              <div className='bg-white rounded-lg shadow-lg p-6 text-gray-800'>
+      {/* Main Content */}
+      <div className='container mx-auto max-w-6xl py-0 md:py-12'>
+        <div className='grid grid-cols-1 xl:grid-cols-3 gap-8'>
+          {/* Left Column - Country List (Desktop Only) */}
+          <div className='hidden xl:block xl:col-span-1'>
+            {/* Country List Filter */}
+            <div className='mb-6'>
+              <div className='bg-white border rounded-lg shadow-md p-6 text-gray-800'>
                 <h2 className='text-xl font-semibold mb-4 flex items-center'>
-                  <Compass className='mr-2 h-5 w-5 text-blue-600' />
+                  <FilterIcon className='mr-2 h-5 w-5 text-blue-600' />
                   {t('quickCheck.title')}
                 </h2>
                 <p className='text-sm text-gray-800 mb-4'>
@@ -231,19 +220,7 @@ const VisaPage: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className='container mx-auto max-w-6xl py-0 md:py-12'>
-        <div className='grid grid-cols-1 xl:grid-cols-3 gap-8'>
-          {/* Left Column - Country List (Desktop Only) */}
-          <div className='hidden xl:block xl:col-span-1'>
             <div className='bg-white rounded-lg shadow-md p-6'>
-              <h2 className='text-xl font-semibold mb-4'>
-                {t('countryList.title')}
-              </h2>
               <div
                 className='h-[800px] overflow-y-auto pr-2'
                 role='listbox'
@@ -277,6 +254,30 @@ const VisaPage: React.FC = () => {
 
           {/* Right Column - Visa Requirements */}
           <div className='md:col-span-2'>
+            {/* Hero Block */}
+            <div className='flex flex-col md:flex-row items-center justify-between'>
+              <div className='space-y-4'>
+                <div className='flex items-center gap-3'>
+                  <PlaneIcon className='w-10 h-10' />
+                  <h1 className='text-3xl md:text-4xl font-bold'>
+                    {t('hero.title')}
+                  </h1>
+                </div>
+                <p className='text-black/60'>{t('hero.subtitle')}</p>
+              </div>
+            </div>
+            <hr className='mt-6' />
+            <div className='py-8 flex items-center justify-between'>
+              <div className='flex items-center space-x-2 text-sm w-1/2'>
+                <p>{t('hero.dataSource')}</p>
+              </div>
+              <Link to='/travel/visa-types'>
+                <Button className='flex group items-center gap-2 text bg-blue-600 text-white p-6 hover:bg-blue-700'>
+                  {t('hero.checkVisaTypes')}
+                  <ArrowRightIcon className='w-5 h-5 group-hover:translate-x-1 transition-transform' />
+                </Button>
+              </Link>
+            </div>
             <div className={`${!selectedCountry ? 'hidden xl:block' : ''}`}>
               {selectedCountry ? (
                 <div className='bg-white rounded-lg shadow-md p-6'>
